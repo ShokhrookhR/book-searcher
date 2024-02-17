@@ -3,13 +3,17 @@ import { NImage, NInput, NSpin, NTable } from 'naive-ui';
 import { ref } from 'vue';
 import { useBookSearcher } from '@/composables/useBookSearcher.js';
 
-const { isLoading, results, onSearch } = useBookSearcher();
+const { isLoading, results, onSearch, router } = useBookSearcher();
 const searchValue = ref('');
 const formatter = (list: string[]) =>
   new Intl.ListFormat('en-GB', { style: 'long', type: 'conjunction' }).format(list);
+
+function onClickItem(id: string | number) {
+  router.push({ name: 'view', params: { id } });
+}
 </script>
 <template>
-  <div class="py-10">
+  <div class="p-10">
     <div class="container mx-auto flex flex-col gap-8">
       <div>
         <NInput :model-value="searchValue" :loading="isLoading" @input="onSearch" />
@@ -36,7 +40,12 @@ const formatter = (list: string[]) =>
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="item in results" :key="item.id" class="cursor-pointer">
+                <tr
+                  v-for="item in results"
+                  :key="item.id"
+                  class="cursor-pointer"
+                  @click="onClickItem(item.id)"
+                >
                   <td class="hover:underline">
                     <NImage
                       :src="item?.volumeInfo?.imageLinks?.smallThumbnail"

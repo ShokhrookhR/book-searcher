@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
+  "typings": "dist/index",
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check \"build-only {@}\" --",
@@ -15,6 +16,7 @@
   "dependencies": {
     "@vueuse/core": "^10.7.2",
     "axios": "^1.6.7",
+    "lodash.get": "^4.4.2",
     "pinia": "^2.1.7",
     "vue": "^3.4.19",
     "vue-router": "^4.2.5"
