@@ -10,16 +10,16 @@ export const useBookSearcher = () => {
   const isLoading = ref(false);
   const results = ref([]);
   const detail = ref<IData>();
-  const onSearch = useDebounceFn(getBooksByParams, 1000);
+  const onSearch = useDebounceFn(getBooksBySearch, 1000);
 
-  function getBooksByParams(value) {
+  function getBooksBySearch(value) {
     if (!value) {
       results.value = [];
       return;
     }
     router.push({
       query: {
-        text: value
+        value: value
       }
     });
 
@@ -27,7 +27,7 @@ export const useBookSearcher = () => {
     isLoading.value = true;
 
     return axios
-      .get(`/books/v1/volumes?q=${value || route.query.text}`)
+      .get(`/books/v1/volumes?q=${value || route.query.value}`)
       .then((res) => {
         results.value = res?.data?.items || [];
         isLoading.value = false;
@@ -58,7 +58,7 @@ export const useBookSearcher = () => {
     results,
     detail,
     onSearch,
-    getBooksByParams,
+    getBooksBySearch,
     getBookById
   };
 };

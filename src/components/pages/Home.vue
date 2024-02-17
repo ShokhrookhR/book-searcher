@@ -4,8 +4,8 @@ import { onMounted, ref } from 'vue';
 import { useBookSearcher } from '@/composables/useBookSearcher.ts';
 import { RouterNames } from '@/constants/index.ts';
 
-const { isLoading, results, onSearch, getBooksByParams, router, route } = useBookSearcher();
-const searchValue = ref(route.query.text || '');
+const { isLoading, results, onSearch, getBooksBySearch, router, route } = useBookSearcher();
+const searchValue = ref(route.query.value || '');
 const formatter = (list: string[]) =>
   new Intl.ListFormat('en-GB', { style: 'long', type: 'conjunction' }).format(list);
 
@@ -13,10 +13,10 @@ function onClickItem(id: string | number) {
   router.push({ name: RouterNames.View, params: { id } });
 }
 onMounted(async () => {
-  if (!route.query.text) {
+  if (!route.query.value) {
     return;
   }
-  await getBooksByParams(route.query.text);
+  await getBooksBySearch(route.query.value);
 });
 </script>
 <template>
