@@ -20,8 +20,8 @@ onMounted(async () => {
 });
 </script>
 <template>
-  <div class="lg:p-10 p-6">
-    <div class="container mx-auto flex flex-col gap-8">
+  <div class="lg:p-10 p-6 container mx-auto">
+    <div class="flex flex-col gap-8">
       <div class="max-w-[400px]">
         <NInput
           :model-value="searchValue"
