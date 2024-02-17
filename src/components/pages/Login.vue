@@ -13,11 +13,12 @@ function onSubmit() {
   const regexp = /^[a-zA-Z]{16}$/g.test(userName.value);
   setTimeout(() => {
     isLoading.value = false;
-    if (regexp) {
-      router.push({ name: RouterNames.Home });
+    if (!regexp) {
+      alert('Invalid username');
       return;
     }
-    alert('Invalid username');
+    sessionStorage.setItem('isAuthenticated', 'authenticated');
+    router.push({ name: RouterNames.Home });
   }, 3000);
 }
 </script>

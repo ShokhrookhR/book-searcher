@@ -3,7 +3,6 @@ import Login from '@/components/pages/Login.vue';
 import Home from '@/components/pages/Home.vue';
 import View from '@/components/pages/Detail.vue';
 import { RouterNames } from '@/constants/index.ts';
-
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -24,5 +23,9 @@ const router = createRouter({
     }
   ]
 });
-
+router.beforeEach((to, from, next) => {
+  const isAuthenticated = Boolean(sessionStorage.getItem('isAuthenticated') === 'authenticated');
+  if (to.name !== RouterNames.Login && !isAuthenticated) next({ name: RouterNames.Login });
+  else next();
+});
 export default router;
