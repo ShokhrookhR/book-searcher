@@ -2,22 +2,32 @@ import { ref } from 'vue';
 import axios from '@/plugins/axios.js';
 import { useDebounceFn } from '@vueuse/core';
 import { useRoute, useRouter } from 'vue-router';
+import { IData } from '@/types/index.ts';
+
 export const useBookSearcher = () => {
   const route = useRoute();
   const router = useRouter();
-  const onSearch = useDebounceFn(getBooksByParams, 1000);
   const isLoading = ref(false);
   const results = ref([]);
-  const detail = ref([]);
+  const detail = ref<IData>();
+  const onSearch = useDebounceFn(getBooksByParams, 1000);
+
   function getBooksByParams(value) {
     if (!value) {
+      results.value = [];
       return;
     }
+    router.push({
+      query: {
+        text: value
+      }
+    });
+
     results.value = [];
     isLoading.value = true;
 
     return axios
-      .get(`/books/v1/volumes?q=${value}`)
+      .get(`/books/v1/volumes?q=${value || route.query.text}`)
       .then((res) => {
         results.value = res?.data?.items || [];
         isLoading.value = false;
@@ -35,6 +45,7 @@ export const useBookSearcher = () => {
         detail.value = res?.data?.volumeInfo || {};
         isLoading.value = false;
       })
+      .catch((err) => console.error(err))
       .finally(() => {
         isLoading.value = false;
       });
@@ -47,6 +58,7 @@ export const useBookSearcher = () => {
     results,
     detail,
     onSearch,
+    getBooksByParams,
     getBookById
   };
 };

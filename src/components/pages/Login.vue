@@ -2,10 +2,9 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { NInput, NSpace, NSpin, NButton, NCard } from 'naive-ui';
+import { RouterNames } from '@/constants/index.ts';
 
-// eslint-disable-next-line no-unused-vars
 const router = useRouter();
-
 const userName = ref('');
 const isLoading = ref(false);
 // const showError = ref(false);
@@ -15,7 +14,7 @@ function onSubmit() {
   setTimeout(() => {
     isLoading.value = false;
     if (regexp) {
-      router.push({ name: 'home' });
+      router.push({ name: RouterNames.Home });
       return;
     }
     alert('Invalid username');

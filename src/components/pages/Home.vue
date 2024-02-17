@@ -1,22 +1,34 @@
 <script setup lang="ts">
 import { NImage, NInput, NSpin, NTable } from 'naive-ui';
-import { ref } from 'vue';
-import { useBookSearcher } from '@/composables/useBookSearcher.js';
+import { onMounted, ref } from 'vue';
+import { useBookSearcher } from '@/composables/useBookSearcher.ts';
+import { RouterNames } from '@/constants/index.ts';
 
-const { isLoading, results, onSearch, router } = useBookSearcher();
-const searchValue = ref('');
+const { isLoading, results, onSearch, getBooksByParams, router, route } = useBookSearcher();
+const searchValue = ref(route.query.text || '');
 const formatter = (list: string[]) =>
   new Intl.ListFormat('en-GB', { style: 'long', type: 'conjunction' }).format(list);
 
 function onClickItem(id: string | number) {
-  router.push({ name: 'view', params: { id } });
+  router.push({ name: RouterNames.View, params: { id } });
 }
+onMounted(async () => {
+  if (!route.query.text) {
+    return;
+  }
+  await getBooksByParams(route.query.text);
+});
 </script>
 <template>
-  <div class="p-10">
+  <div class="lg:p-10 p-5">
     <div class="container mx-auto flex flex-col gap-8">
-      <div>
-        <NInput :model-value="searchValue" :loading="isLoading" @input="onSearch" />
+      <div class="max-w-[400px]">
+        <NInput
+          :model-value="searchValue"
+          :loading="isLoading"
+          placeholder="Search"
+          @input="onSearch"
+        />
       </div>
       <template v-if="isLoading">
         <div class="flex justify-center items-center min-h-screen">
@@ -26,7 +38,7 @@ function onClickItem(id: string | number) {
       <template v-else>
         <template v-if="!results.length">
           <div class="w-full">
-            <div class="font-semibold text-2xl">List is empty</div>
+            <div class="font-base text-xl">List is empty</div>
           </div>
         </template>
         <template v-else>
