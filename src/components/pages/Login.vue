@@ -24,14 +24,14 @@ function onSubmit() {
 }
 </script>
 <template>
-  <div class="sm:py-10 p-6 container mx-auto">
+  <div class="sm:py-10 p-6">
     <div class="max-w-[500px] m-auto">
       <NSpace vertical>
         <NAlert v-if="showError" title="Validation Error" type="error">
           Username is not valid
         </NAlert>
         <NSpin :show="isLoading">
-          <div class="h-full">
+          <div class="container mx-auto">
             <NCard title="Book Searcher" size="huge">
               <div class="flex flex-col gap-3">
                 <div class="text-center mb-[50px]">

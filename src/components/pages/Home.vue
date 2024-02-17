@@ -22,7 +22,7 @@ onMounted(async () => {
 <template>
   <div class="p-6">
     <div class="flex flex-col gap-8">
-      <div class="container mx-auto">
+      <div class="sm:container max-w-[300px] mx-auto">
         <NInput
           :model-value="searchValue"
           :loading="isLoading"
@@ -37,12 +37,12 @@ onMounted(async () => {
       </template>
       <template v-else>
         <template v-if="!results.length">
-          <div class="w-full">
+          <div class="container mx-auto">
             <div class="font-base text-xl">List is empty</div>
           </div>
         </template>
         <template v-else>
-          <div class="container mx-auto">
+          <div class="max-w-[300px] sm:container mx-auto">
             <NTable striped>
               <thead>
                 <tr>
