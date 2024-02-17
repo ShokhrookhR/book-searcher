@@ -24,7 +24,7 @@ function onSubmit() {
 }
 </script>
 <template>
-  <div class="sm:py-10 h-screen">
+  <div class="sm:py-10 h-screen p-6">
     <div class="max-w-[500px] m-auto">
       <NSpace vertical>
         <NAlert v-if="showError" title="Validation Error" type="error">
