@@ -20,9 +20,9 @@ onMounted(async () => {
 });
 </script>
 <template>
-  <div class="lg:p-10 p-6 container mx-auto">
+  <div class="p-6">
     <div class="flex flex-col gap-8">
-      <div class="max-w-[400px]">
+      <div class="container mx-auto">
         <NInput
           :model-value="searchValue"
           :loading="isLoading"
@@ -42,7 +42,7 @@ onMounted(async () => {
           </div>
         </template>
         <template v-else>
-          <div class="w-full">
+          <div class="container mx-auto">
             <NTable striped>
               <thead>
                 <tr>
