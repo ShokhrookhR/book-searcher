@@ -20,7 +20,7 @@ onMounted(async () => {
 });
 </script>
 <template>
-  <div class="p-6">
+  <div class="py-6">
     <div class="flex flex-col gap-8">
       <div class="sm:container max-w-[300px] mx-auto">
         <NInput
