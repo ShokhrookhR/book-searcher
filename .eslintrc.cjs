@@ -1,4 +1,4 @@
-const isProd = process.env.NODE_ENV === 'production'
+const isProd = process.env.NODE_ENV === 'production';
 
 module.exports = {
   env: {
@@ -27,7 +27,6 @@ module.exports = {
       }
     ],
     'vue/camelcase': ['warn', { ignoreDestructuring: true, ignoreImports: true }],
-    'no-console': (isProd && 'error') || 'warn',
     'vue/no-mutating-props': [
       'error',
       {
@@ -56,4 +55,4 @@ module.exports = {
     afterEach: true,
     Cypress: true
   }
-}
+};

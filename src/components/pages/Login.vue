@@ -1,20 +1,21 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { NInput, NSpace, NSpin, NButton, NCard } from 'naive-ui';
+import { NInput, NSpace, NSpin, NButton, NCard, NAlert } from 'naive-ui';
 import { RouterNames } from '@/constants/index.ts';
 
 const router = useRouter();
 const userName = ref('');
 const isLoading = ref(false);
-// const showError = ref(false);
+const showError = ref(false);
 function onSubmit() {
+  showError.value = false;
   isLoading.value = true;
   const regexp = /^[a-zA-Z]{16}$/g.test(userName.value);
   setTimeout(() => {
     isLoading.value = false;
     if (!regexp) {
-      alert('Invalid username');
+      showError.value = true;
       return;
     }
     sessionStorage.setItem('isAuthenticated', 'authenticated');
@@ -25,6 +26,9 @@ function onSubmit() {
 <template>
   <div class="w-[400px] mx-auto my-[150px] h-[500px]">
     <NSpace vertical>
+      <NAlert v-if="showError" title="Validation Error" type="error">
+        Username is not valid
+      </NAlert>
       <NSpin :show="isLoading">
         <div class="w-full">
           <NCard>
