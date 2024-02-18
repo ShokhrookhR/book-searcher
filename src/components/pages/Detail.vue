@@ -14,7 +14,7 @@ onMounted(async () => {
 });
 </script>
 <template>
-  <div class="lg:py-10 py-6 flex flex-col gap-3">
+  <div class="lg:py-10 py-6 flex flex-col gap-3 items-center">
     <div class="container mx-auto flex items-center gap-5">
       <div class="w-7 cursor-pointer">
         <ArrowBackOutline size="20" @click="() => router.back()" />

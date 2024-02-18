@@ -24,8 +24,8 @@ function onSubmit() {
 }
 </script>
 <template>
-  <div class="sm:py-6">
-    <div class="max-w-[500px] m-auto">
+  <div class="sm:py-6 p-5">
+    <div class="container mx-auto">
       <NSpace vertical>
         <NAlert v-if="showError" title="Validation Error" type="error">
           Username is not valid
@@ -33,7 +33,7 @@ function onSubmit() {
         <NSpin :show="isLoading">
           <div class="container mx-auto">
             <NCard title="Book Searcher" size="huge">
-              <div class="flex flex-col gap-3">
+              <div class="flex flex-col gap-3 items-center">
                 <div class="text-center mb-[50px]">
                   <h3 class="text-[28px] font-[600] uppercase">Sign in</h3>
                   <p class="text-base">Enter your username to enter</p>
